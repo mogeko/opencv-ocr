@@ -11,6 +11,7 @@ opencv-python = "^4.7.0.72"
 autopep8 = "^2.0.2"
 numpy = "^1.24.2"
 matplotlib = "^3.7.1"
+pytest = "^7.2.2"
 
 
 [build-system]
