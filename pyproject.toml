@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "opencv-ocr"
+version = "0.1.0"
+description = "Implement OCR based on OpenCV (opencv-python)"
+homepage = "https://github.com/mogeko/opencv-ocr"
+repository = "https://github.com/mogeko/opencv-ocr"
+authors = ["Mogeko <zhengjunyi@live.com>"]
+readme = "README.md"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+opencv-python = "^4.7.0.72"
+autopep8 = "^2.0.2"
+numpy = "^1.24.2"
+matplotlib = "^3.7.1"
+pytest = "^7.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
