@@ -2,8 +2,11 @@
 name = "opencv-ocr"
 version = "0.1.0"
 description = "Implement OCR based on OpenCV (opencv-python)"
+homepage = "https://github.com/mogeko/opencv-ocr"
+repository = "https://github.com/mogeko/opencv-ocr"
 authors = ["Mogeko <zhengjunyi@live.com>"]
 readme = "README.md"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
