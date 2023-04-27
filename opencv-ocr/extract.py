@@ -16,6 +16,20 @@ def localize(img, threshold1=100, threshold2=200, shape=(5, 5), iterations=1):
     return (dilation, erosion)
 
 
+# 3. 字符分割 - 这一步通常需要更复杂的方法，这里只是一个简单的开始
+def segment_characters(contours, image):
+    characters = []
+    for contour in contours:
+        # 获取每个轮廓的边界框
+        x, y, w, h = cv.boundingRect(contour)
+
+        # 提取字符
+        character = image[y:y+h, x:x+w]
+        characters.append(character)
+
+    return characters
+
+
 if __name__ == '__main__':
     from preprocess import preprocess
 
@@ -25,5 +39,8 @@ if __name__ == '__main__':
     (dilation, erosion) = localize(img)
     cv.imshow('Dilation', dilation)
     cv.imshow('Erosion', erosion)
+    seg = segment_characters([erosion], img)
+    for i in range(len(seg)):
+        cv.imshow('Segmented Character {}'.format(i), seg[i])
     cv.waitKey(0)
     cv.destroyAllWindows()
