@@ -31,10 +31,10 @@ def segment_characters(contours, image):
 
 
 if __name__ == '__main__':
-    from preprocess import preprocess
+    from preprocess import preprocess_image
 
     img = cv.imread('examples/simple_1.png')
-    img = preprocess(img)
+    img = preprocess_image(img)
     cv.imshow('Original', img)
     (dilation, erosion) = localize(img)
     cv.imshow('Dilation', dilation)
