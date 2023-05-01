@@ -38,11 +38,12 @@ def extract_by_progection(img):
     h_proj = np.sum(img, axis=1)
 
     # 根据水平投影分割行
-    rows, start = [], 0
+    rows, start, y = [], 0, []
     for i in range(len(h_proj)):
         if h_proj[i] == 0:
             if i > start:
                 rows.append(img_bin[start:i, :])
+                y.append([i, i-start])
             start = i+1
 
     # 计算垂直投影
@@ -50,15 +51,15 @@ def extract_by_progection(img):
 
     # 根据垂直投影分割字符
     for i in range(len(rows)):
-        cols, start = [], 0
+        cols, start, x = [], 0, []
         for j in range(len(v_proj[i])):
             if v_proj[i][j] == 0:
                 if j > start:
                     cols.append(rows[i][:, start:j])
+                    x.append([y[i][0], j, y[i][1], j-start])
                 start = j+1
         rows[i] = cols
-
-    print([len(row) for row in rows])
+        y[i] = x
 
     # 为字符添加边框
     for row in range(len(rows)):
@@ -66,7 +67,17 @@ def extract_by_progection(img):
             rows[row][col] = cv.copyMakeBorder(
                 rows[row][col], 20, 20, 20, 20, cv.BORDER_CONSTANT, value=0)
 
-    return rows, [np.sum(row, axis=0) for row in h_proj]
+    return rows, y
+
+
+def location(xy, img):
+    for i in range(len(xy)):
+        for j in range(len(xy[i])):
+            img = cv.rectangle(img, (xy[i][j][1]-xy[i][j][3], xy[i][j]
+                               [0]-xy[i][j][2]), (xy[i][j][1], xy[i][j][0]), (0, 255, 0), 2)
+
+    cv.imshow('Location', img)
+    return img
 
 
 if __name__ == '__main__':
@@ -82,6 +93,8 @@ if __name__ == '__main__':
     for i in range(len(imgs)):
         for j in range(len(imgs[i])):
             cv.imshow('Character {}-{}'.format(i, j), imgs[i][j])
+
+    location(p, cv.imread('examples/simple_2.png'))
 
     cv.imwrite('examples/extracted.png', imgs[0][0])
     cv.waitKey(0)
