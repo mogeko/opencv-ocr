@@ -28,7 +28,7 @@ def segment_characters(contours, image, min_char_height=20, min_char_width=10):
     for cnt in contours:
         x, y, w, h = cv.boundingRect(cnt)
 
-        if h < min_char_height or w < min_char_width:
+        if h > min_char_height or w > min_char_width:
             character_bboxes.append((x, y, w, h))
 
     return character_bboxes
@@ -73,7 +73,7 @@ def extract_features(character_bboxes, img_bin):
 if __name__ == '__main__':
     from preprocess import preprocess_image
 
-    img = cv.imread('examples/simple_1.png')
+    img = cv.imread('examples/simple_2.png')
     img = preprocess_image(img)
     cv.imshow('Original', img)
     contours = localize_text(img)

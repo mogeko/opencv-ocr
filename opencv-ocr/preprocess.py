@@ -19,7 +19,7 @@ def preprocess_image(img, ksize=3):
 
 
 if __name__ == '__main__':
-    img = cv.imread('examples/simple_1.png')
+    img = cv.imread('examples/simple_3.jpg')
     cv.imshow('Original', img)
     cv.imshow('Processed', preprocess_image(img))
     cv.waitKey(0)
