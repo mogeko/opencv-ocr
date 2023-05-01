@@ -1,6 +1,7 @@
 [tool.poetry]
 name = "opencv-ocr"
 version = "0.1.0"
+packages = [{ include = "opencv-ocr" }]
 description = "Implement OCR based on OpenCV (opencv-python)"
 homepage = "https://github.com/mogeko/opencv-ocr"
 repository = "https://github.com/mogeko/opencv-ocr"
@@ -11,6 +12,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.11"
 opencv-python = "^4.7.0.72"
+pytesseract = "^0.3.10"
 autopep8 = "^2.0.2"
 numpy = "^1.24.2"
 matplotlib = "^3.7.1"
