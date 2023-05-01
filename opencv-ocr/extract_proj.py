@@ -29,7 +29,7 @@ def get_v_progection(img):
     return vcolsum
 
 
-def extract_by_progection(img):
+def extract_feature(img):
     # 二值化
     _, img_bin = cv.threshold(
         img, 128, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     img = preprocess_image(img)
     cv.imshow('Original', img)
     contours = localize_text(img)
-    imgs, p = extract_by_progection(img)
+    imgs, p = extract_feature(img)
 
     for i in range(len(imgs)):
         for j in range(len(imgs[i])):
