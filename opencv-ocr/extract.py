@@ -54,7 +54,7 @@ def extract_features(character_bboxes, img_bin):
 if __name__ == '__main__':
     from preprocess import preprocess_image
 
-    img = cv.imread('examples/simple_2.png')
+    img = cv.imread('examples/simple_1.jpg')
     img = preprocess_image(img)
     cv.imshow('Original', img)
     contours = localize_text(img)

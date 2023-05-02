@@ -11,13 +11,14 @@ def main(path):
     rows, p = extract_feature(img_bin)
 
     str = []
+    font_size, font_weight = 1, 2
     for i in range(len(rows)):
         for j in range(len(rows[i])):
             text = recognize_text(rows[i][j]).strip()
             cv.rectangle(img, (p[i][j][1]-p[i][j][3], p[i][j]
                                [0]-p[i][j][2]), (p[i][j][1], p[i][j][0]), (0, 255, 0), 2)
             cv.putText(img, text, (p[i][j][1]-p[i][j][3]-4, p[i][j][0]-p[i]
-                       [j][2]-1), cv.FONT_HERSHEY_COMPLEX, 0.4, (50, 50, 255), 1)
+                       [j][2]-1), cv.FONT_HERSHEY_COMPLEX, font_size, (50, 50, 255), font_weight)
             str.append(text)
 
     print(''.join(str), end=None)
