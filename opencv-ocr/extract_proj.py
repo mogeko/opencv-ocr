@@ -94,6 +94,5 @@ if __name__ == '__main__':
 
     cv.imshow('Location', location(p, cv.imread('examples/simple_1.jpg')))
 
-    cv.imwrite('examples/extracted.png', imgs[0][0])
     cv.waitKey(0)
     cv.destroyAllWindows()
