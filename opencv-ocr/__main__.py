@@ -23,6 +23,7 @@ def main(path):
 
     print(''.join(str), end=None)
     cv.imshow('Result', img)
+    cv.imwrite('result.jpg', img)
     cv.waitKey(0)
     cv.destroyAllWindows()
 
