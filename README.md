@@ -1,15 +1,12 @@
 # opencv-ocr
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/26341224/235641560-74889377-f5e1-41ae-841f-5b44072e0f71.jpg"
-       alt="result" width="80%">
-</p>
+![result](https://user-images.githubusercontent.com/26341224/235641560-74889377-f5e1-41ae-841f-5b44072e0f71.jpg)
 
 Implement OCR based on OpenCV ([opencv-python](https://pypi.org/project/opencv-python)).
 
 ## General idea
 
-To implement OCR with OpenCV, we will follow these general steps:
+To implement OCR (Optical character recognition) with OpenCV, we will follow these general steps:
 
 1. **Preprocess the image**: OCR requires a clear, bright, and noise-free image, so the first step is to preprocess the image, such as removing noise, smoothing, enhancing contrast, binarizing, and so on.
 2. **Text localization**: OCR needs to recognize the text, which must be localized first. We can use [edge detection algorithms](https://docs.opencv.org/3.4/da/d22/tutorial_py_canny.html) and [morphological operations](https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html) provided by OpenCV, such as erosion and dilation, to detect and segment text regions.
@@ -70,13 +67,13 @@ def preprocess_image(img, ksize=3):
 
 ### Character segmentation
 
-然后我们需要将图像中的文本区域分割成单个字符。相比于完整的句子或者单词，识别单个字母更不容易发生歧义（因为总共只有 26 种可能性），从而提高整体的识别精度。并且将句子分割成单个字母后，可以将问题简化为分类问题，为每个字母建立一个分类器。这样，训练模型的难度降低，同时也降低了计算成本。
+Then we need to divide the text area in the image into single characters. Compared with complete sentences or words, recognizing a single letter is less prone to ambiguity (because there are only 26 possibilities in total), thus improving the overall recognition accuracy. And after dividing the sentence into a single letter, the problem can be simplified to a classification problem and a classifier can be established for each letter. In this way, the difficulty of the training model is reduced, and the calculation cost is also reduced.
 
-最后，分割成单个字母后，OCR 系统可以更容易地支持多种语言，因为大多数语言都是由基本字符组成的（我们的 OCR 软件暂时不支持多语言）。
+Finally, after dividing into single letters, the OCR system can support multiple languages more easily, because most languages are composed of basic characters (our OCR software does not support multiple languages for the time being).
 
-我们使用投影的方法确每个字符的位置，然后根据位置对其进行切割；同时，记录每个字符的位置，以备后续使用。
+We use the projection method to determine the position of each character and then cut it according to its position. At the same time, we record the position of each character for subsequent use.
 
-我们首先计算水平投影，并通过它对图片进行横向切割：
+We first calculate the horizontal projection and cut the picture horizontally through it:
 
 ```python
 def get_h_progection(img):
@@ -103,7 +100,7 @@ def get_h_progection(img):
        alt="h_cut" width="80%">
 </p>
 
-然后我们计算垂直投影，并通过它对图片进行纵向切割 (别忘了为每个字符加上边框，以便深度学习模型识别)：
+Then we calculate the vertical projection and cut the picture vertically through it (don't forget to border each character for deep learning model recognition):
 
 ```python
 def get_v_progection(img):
@@ -126,15 +123,15 @@ def get_v_progection(img):
 </p>
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/26341224/235652489-1f9ac1b5-06eb-42f6-b763-feb2e494f56e.png"
+  <img src="https://user-images.githubusercontent.com/26341224/236053978-134c3324-b1bf-4a5c-a324-a585576943f3.jpg"
        alt="v_cut">
 </p>
 
 ### Recognize text
 
-为了节约时间，我们跳过了训练深度学习模型的步骤，直接使用了 Google 的 Tesseract 团队开源的模型。
+In order to save time, we skipped the steps of training the deep learning model and directly used the open source model of Google's Tesseract team.
 
-直接调用 Tesseract 的 API 对字符图片进行识别：
+Directly call Tesseract's API to identify character images:
 
 ```python
 def recognize_text(char):
@@ -143,7 +140,7 @@ def recognize_text(char):
 
 ### Synthesis results
 
-最后，将字符的位置信息（绿色方框），以及识别结果（红色字符）绘制到原图上：
+Finally, draw the position information of the character (green box) and the recognition result (red character) to the original picture:
 
 ```python
 str = []
