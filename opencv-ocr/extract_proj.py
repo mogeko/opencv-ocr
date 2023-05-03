@@ -75,8 +75,6 @@ def location(xy, img):
         for j in range(len(xy[i])):
             img = cv.rectangle(img, (xy[i][j][1]-xy[i][j][3], xy[i][j]
                                [0]-xy[i][j][2]), (xy[i][j][1], xy[i][j][0]), (0, 255, 0), 2)
-
-    cv.imshow('Location', img)
     return img
 
 
@@ -84,7 +82,7 @@ if __name__ == '__main__':
     from preprocess import preprocess_image
     from localize import localize_text
 
-    img = cv.imread('examples/simple_2.png')
+    img = cv.imread('examples/simple_1.jpg')
     img = preprocess_image(img)
     cv.imshow('Original', img)
     contours = localize_text(img)
@@ -94,8 +92,7 @@ if __name__ == '__main__':
         for j in range(len(imgs[i])):
             cv.imshow('Character {}-{}'.format(i, j), imgs[i][j])
 
-    location(p, cv.imread('examples/simple_2.png'))
+    cv.imshow('Location', location(p, cv.imread('examples/simple_1.jpg')))
 
-    cv.imwrite('examples/extracted.png', imgs[0][0])
     cv.waitKey(0)
     cv.destroyAllWindows()
